@@ -1,5 +1,5 @@
 module.exports = {
-  name: "Ping",
+  name: "ping",
   description: "Pong!",
   // devOnly: Boolean,
   // testOnly: Boolean,

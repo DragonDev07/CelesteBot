@@ -1,5 +1,6 @@
-import { Client, GatewayIntentBits } from "discord.js";
-import { config } from "dotenv";
+const { Client, GatewayIntentBits } = require("discord.js");
+const { config } = require("dotenv");
+const eventHandler = require("./handlers/eventHandler");
 
 // Load `.env` variables
 config();
@@ -17,7 +18,4 @@ const client = new Client({
 // Login with `TOKEN` value from `.env` file
 client.login(process.env.TOKEN);
 
-// Log when bot is online
-client.on("ready", (c) => {
-  console.log(`${c.user.tag} is now online.`);
-});
+eventHandler(client);

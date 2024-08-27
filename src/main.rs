@@ -7,7 +7,6 @@ pub mod commands {
     pub mod moderation;
     pub mod utils {
         pub mod ping;
-        pub mod reload;
     }
 }
 
@@ -27,7 +26,6 @@ async fn main(#[shuttle_runtime::Secrets] secret_store: SecretStore) -> ShuttleS
         .options(poise::FrameworkOptions {
             commands: vec![
                 commands::utils::ping::ping(),
-                commands::utils::reload::reload(),
                 commands::moderation::kick(),
                 commands::moderation::ban(),
             ],

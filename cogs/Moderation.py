@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord import app_commands
 
 
 class Moderation(commands.Cog):
@@ -17,9 +18,9 @@ class Moderation(commands.Cog):
         await self.bot.on_command_error(ctx, error)
 
     # ------ Command to kick a member from the guild ------ #
-    @commands.command(name="kick", description="Kicks a user from the server")
+    @app_commands.command(name="kick", description="Kicks a user from the server")
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, member: discord.Member, *, reason=None):
+    async def kick(self, ctx, member: discord.Member, *, reason: str = None):
         await member.kick(reason=reason)
         await ctx.send(f"Kicked User {member} for reason {reason}")
         print(
@@ -27,9 +28,9 @@ class Moderation(commands.Cog):
         )
 
     # ------ Command to ban a member from the guild ------ #
-    @commands.command(name="ban", description="Bans a user from the server")
+    @app_commands.command(name="ban", description="Bans a user from the server")
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, member: discord.Member, *, reason=None):
+    async def ban(self, ctx, member: discord.Member, *, reason: str = None):
         await member.ban(reason=reason)
         await ctx.send(
             f"User {member} has been ejected into the abyss (banned) for reason {reason}"
@@ -39,7 +40,7 @@ class Moderation(commands.Cog):
         )
 
     # ------ Command to clear given numbe of messages from channel ------ #
-    @commands.command(
+    @app_commands.command(
         name="clear", description="Clears a given number of messages from the channel"
     )
     @commands.has_permissions(manage_messages=True)
@@ -51,9 +52,9 @@ class Moderation(commands.Cog):
         )
 
     # ------ Command to unban a member from the guild ------ #
-    @commands.command(name="unban", description="Unbans a user from the server")
+    @app_commands.command(name="unban", description="Unbans a user from the server")
     @commands.has_permissions(ban_members=True)
-    async def unban(self, ctx, *, member):
+    async def unban(self, ctx, *, member: discord.Member):
         banned_users = await ctx.guild.bans()
         member_name, member_discriminator = member.split("#")
 
@@ -66,7 +67,7 @@ class Moderation(commands.Cog):
                 print(f"The 'unban' command was run by {ctx.message.author} on {user}")
 
     # ------ Command to get information about a user in the guild ------ #
-    @commands.command(name="userinfo", description="Get information about a user")
+    @app_commands.command(name="userinfo", description="Get information about a user")
     async def userinfo(self, ctx, member: discord.Member):
         embed = discord.Embed(
             title=f"{member}",

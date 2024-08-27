@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord import app_commands
 
 
 class Developer(commands.Cog):
@@ -17,9 +18,9 @@ class Developer(commands.Cog):
         await self.bot.on_command_error(ctx, error)
 
     # ------ Command to load a cog ------ #
-    @commands.command()
+    @app_commands.command(name="loadcog", description="Loads a cog into the bot")
     @commands.is_owner()
-    async def loadcog(self, ctx, cogname=None):
+    async def loadcog(self, ctx, cogname: str = None):
         if cogname is None:
             await ctx.send("Please provide a cog to load.")
             return
@@ -33,9 +34,9 @@ class Developer(commands.Cog):
         print(f"The 'loadcog' command was run by {ctx.message.author}")
 
     # ------ Command to unload a cog ------ #
-    @commands.command()
+    @app_commands.command(name="unloadcog", description="Unloads a cog from the bot")
     @commands.is_owner()
-    async def unloadcog(self, ctx, cogname=None):
+    async def unloadcog(self, ctx, *, cogname: str = None):
         if cogname is None:
             await ctx.send("Please provide a cog to unload.")
             return
@@ -51,11 +52,13 @@ class Developer(commands.Cog):
         print(f"The 'unloadcog' command was run by {ctx.message.author}")
 
     # ------ Command to sync slash commands ------ #
-    @commands.hybrid_command()
+    @app_commands.command(name="reload", description="Reloads slash commands")
     @commands.is_owner()
     async def reload(self, ctx):
+        print("reload command")
         await ctx.bot.tree.sync()
-        await ctx.send("Commands reloaded!")
+        print("synced")
+        await ctx.defer("Commands reloaded!")
         print(f"The 'reload' command was run by {ctx.message.author}")
 
 

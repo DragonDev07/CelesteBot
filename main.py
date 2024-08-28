@@ -1,20 +1,20 @@
 import asyncio
 import os
-
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
+# Load `.env` environment variables
 load_dotenv()
 
-# Get token from `.env` file
+# Get the token from the environment variables
 TOKEN = os.environ.get("TOKEN")
 
 # Declare Intents
 intents = discord.Intents.all()
 intents.message_content = True
 
-# Create Client
+# Create a Bot instance
 client = commands.Bot(command_prefix=">", intents=intents)
 
 
@@ -34,6 +34,7 @@ async def on_command_error(ctx, error):
     print(f"Error, {error}")
 
 
+# Function to load cogs
 async def load_cogs():
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
@@ -45,4 +46,5 @@ async def main():
     await client.start(TOKEN)
 
 
+# Run the bot
 asyncio.run(main())

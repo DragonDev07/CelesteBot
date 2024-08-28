@@ -17,24 +17,48 @@ class Developer(commands.Cog):
         await self.bot.on_command_error(ctx, error)
 
     # Command to load a cog
-    @commands.hybrid_command(name="load", description="Load a cog")
+    @commands.hybrid_command(name="loadcog", description="Load a cog")
     @commands.is_owner()
     async def loadcog(self, ctx, cogname: str = None):
         # Check if cogname is None
         if cogname is None:
-            # If it is, send a message to the command user to provide a cog
-            await ctx.send("Please provide a cog to load.")
+            # If it is, send a embed to the command user to provide a cog
+            embed = discord.Embed(
+                title="Error",
+                description=f"Please provide the name of a cog to load (see /help)",
+                color=discord.Color.red(),
+            )
+
+            await ctx.send(embed=embed)
             return
+
+        # Try to load the cog
         try:
             # Load the cog
             cog = "cogs." + cogname
             await self.client.load_extension(cog)
         except Exception as e:
-            # If an error occurs, send a message to the command user
-            await ctx.send(f"Loading cog {cogname} threw error {e}. Did not load cog.")
+            # If an error occurs, send a response embed to the command user
+            embed = discord.Embed(
+                title="Error",
+                description=f"Loading cog {cogname} threw error {e}\nDid not load cog.",
+                color=discord.Color.red(),
+            )
+
+            await ctx.send(embed=embed)
         else:
-            # If the cog is loaded successfully, send a message to the command user
-            await ctx.send("Loaded Cog!")
+            # If the cog is loaded successfully, send an embed message to the command user
+            embed = discord.Embed(
+                title="Cog Loaded",
+                description=f"The cog {cogname} has been successfully loaded.",
+                color=discord.Color.green(),
+            )
+            embed.set_footer(
+                text=f"'loadcog' command was run by {ctx.message.author} on the {cogname} cog",
+                icon_url=ctx.author.avatar,
+            )
+
+            await ctx.send(embed=embed)
 
         # Print to the console that the command has been run
         print(f"The 'loadcog' command was run by {ctx.message.author}")
@@ -45,24 +69,48 @@ class Developer(commands.Cog):
     async def unloadcog(self, ctx, *, cogname: str = None):
         # Check if cogname is None
         if cogname is None:
-            # If it is, send a message to the command user to provide a cog
-            await ctx.send("Please provide a cog to unload.")
+            # If it is, send a embed to the command user to provide a cog
+            embed = discord.Embed(
+                title="Error",
+                description=f"Please provide the name of a cog to unload (see /help)",
+                color=discord.Color.red(),
+            )
+
+            await ctx.send(embed=embed)
             return
+
+        # Try to unload the cog
         try:
             # Unload the cog
             cog = "cogs." + cogname
             await self.client.unload_extension(cog)
         except Exception as e:
-            # If an error occurs, send a message to the command user
-            await ctx.send(
-                f"Unloading cog {cogname} threw error {e}. Did not unload cog."
+            # # If an error occurs, send a response embed to the command user
+            embed = discord.Embed(
+                title="Error",
+                description=f"Unloading cog {cogname} threw error {e}\nDid not unload cog.",
+                color=discord.Color.red(),
             )
+
+            await ctx.send(embed=embed)
         else:
-            # If the cog is unloaded successfully, send a message to the command user
-            await ctx.send("Unloaded Cog!")
+            # If the cog is unloaded successfully, send a embed to the command user
+            embed = discord.Embed(
+                title="Cog Unloaded",
+                description=f"The cog {cogname} has been successfully unloaded.",
+                color=discord.Color.green(),
+            )
+            embed.set_footer(
+                text=f"'unloadcog' command was run by {ctx.message.author} on the {cogname} cog",
+                icon_url=ctx.author.avatar,
+            )
+
+            await ctx.send(embed=embed)
 
         # Print to the console that the command has been run
-        print(f"The 'unloadcog' command was run by {ctx.message.author}")
+        print(
+            f"The 'unloadcog' command was run by {ctx.message.author} on {cogname} cog"
+        )
 
     # Command to reload all commands
     @commands.hybrid_command(name="reload", description="Reloads all commands")

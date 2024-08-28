@@ -23,8 +23,18 @@ class Moderation(commands.Cog):
         # Kick the member from the guild
         await ctx.guild.kick(member, reason=reason)
 
-        # Send a response to the command user
-        await ctx.send(f"Kicked User {member} for reason {reason}")
+        # Create an embed with the kick information
+        embed = discord.Embed(
+            title="Member Kicked",
+            description=f"User {member} has been kicked for reason: {reason}",
+            color=discord.Color.red(),
+        )
+        embed.set_footer(
+            text=f"Kicked by {ctx.message.author}", icon_url=ctx.author.avatar
+        )
+
+        # Send the embed as a response
+        await ctx.send(embed=embed)
 
         # Print to the console that the command has been run
         print(
@@ -38,26 +48,23 @@ class Moderation(commands.Cog):
         # Ban the member from the guild
         await ctx.guild.ban(member, reason=reason)
 
-        # Send a response to the command user
-        await ctx.send(f"User {member} has been banned for reason: {reason}")
+        # Create an embed with the ban information
+        embed = discord.Embed(
+            title=":hammer: Member Banned",
+            description=f"User {member} has been banned for reason: {reason}",
+            color=discord.Color.red(),
+        )
+        embed.set_footer(
+            text=f"Banned by {ctx.message.author}", icon_url=ctx.author.avatar
+        )
+
+        # Send the embed as a response
+        await ctx.send(embed=embed)
 
         # Print to the console that the command has been run
         print(
             f"The 'ban' command has been run on {member} by {ctx.message.author} for reason {reason}"
         )
-
-    # Unban Command
-    @commands.hybrid_command(name="unban", description="Unban a member from the server")
-    @commands.has_permissions(ban_members=True)
-    async def unban(self, ctx, *, member: discord.User):
-        # Unban the member from the guild
-        await ctx.guild.unban(member)
-
-        # Send a response to the command user
-        await ctx.send(f"User {member} has been unbanned")
-
-        # Print to the console that the command has been run
-        print(f"The 'unban' command has been run on {member} by {ctx.message.author}")
 
     # Clear Command
     @commands.hybrid_command(
@@ -69,10 +76,21 @@ class Moderation(commands.Cog):
         await ctx.defer()
 
         # Clear the specified amount of messages
-        await ctx.channel.purge(limit=amount)
+        await ctx.channel.purge(limit=amount + 1)
+
+        # Create an embed with the clear information
+        embed = discord.Embed(
+            title=":wastebasket: Messages Cleared",
+            description=f"Cleared {amount} messages",
+            color=discord.Color.green(),
+        )
+        embed.set_footer(
+            text=f"'Clear' command run by {ctx.message.author} for {amount} messages",
+            icon_url=ctx.author.avatar,
+        )
 
         # Send a response to the command user
-        await ctx.send(f"Cleared {amount} messages")
+        await ctx.send(embed=embed)
 
         # Print to the console that the command has been run
         print(

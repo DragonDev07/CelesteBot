@@ -27,4 +27,4 @@ A starry discord bot!
 - [ ] User join guild event
 - [x] OnReady event
 - [ ] Media commands (play youtube audio, etc.)
-- [ ] Replace all replies with Embeds
+- [x] Replace all replies with Embeds

@@ -15,7 +15,7 @@ intents = discord.Intents.all()
 intents.message_content = True
 
 # Create a Bot instance
-client = commands.Bot(command_prefix=">", intents=intents)
+client = commands.Bot(command_prefix=">", intents=intents, help_command=None)
 
 
 # On Ready Event - Change bot's presence & print the bots username + it is ready
@@ -26,6 +26,29 @@ async def on_ready():
 
     # Print bot is online
     print(f"{client.user} is now online.")
+
+
+# On User Join Event
+@client.event
+async def on_member_join(member):
+    # Create an embed with the welcome message
+    embed = discord.Embed(
+        title="Welcome!",
+        description=f"Welcome to the server {member}!",
+        color=discord.Color.green(),
+        image_url=member.avatar,
+    )
+
+    # Get the channel to send the welcome message
+    channel = member.guild.system_channel
+
+    if channel:
+        # Send the welcome message
+        await channel.send(embed=embed)
+
+        print(f"Sent welcome message to {member} in {member.guild}")
+    else:
+        print("Could not run `on_member_join()` -> No system channel found")
 
 
 # Error Handling

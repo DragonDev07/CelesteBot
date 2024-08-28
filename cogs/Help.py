@@ -18,7 +18,7 @@ class Help(commands.Cog):
 
     # Help command which lists all cogs, commands, prefixes, etc.
     @commands.hybrid_command(
-        name="help2", description="List all cogs, commands, prefixes, etc."
+        name="help", description="List all cogs, commands, prefixes, etc."
     )
     async def help(self, ctx):
         # Defer the response
@@ -26,7 +26,6 @@ class Help(commands.Cog):
 
         # Create an embed
         embed = discord.Embed(title="Help", color=discord.Color.blurple())
-        embed.add_field(name="Prefix", value=">", inline=False)
         embed.add_field(
             name="Moderation Commands",
             value="• /kick <member> <optional: reason> - Kicks a given member, requires the user to have the KICK_MEMBER permission to run\n• /ban <member> <optional: reason> - Bans a given member, requires the user to have the BAN_MEMBER permission to run\n• /unban <member> - Unbans a given member, requires the user to have the BAN_MEMBER permission\n• /clear <amount> - Clears a given amount of messages, requires the MANAGE_MESSAGES permission to run\n• /userinfo <member> - Displays information about a given member",
@@ -37,10 +36,10 @@ class Help(commands.Cog):
             value="• Developer\n• Moderation\n• Help",
             inline=False,
         )
-        embed.add_field(
-            name="Created w/ ❤️ by:",
-            value="Teo Welton (FurthestDrop517#9625). Enjoy!\n (if you wanna contribute run /contributing)",
-            inline=False,
+        embed.footer(
+            name="Created w/ ❤️ by",
+            value="Teo Welton (@furthestdrop) !",
+            inline=True,
         )
 
         # Send the embed

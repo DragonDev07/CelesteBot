@@ -85,7 +85,7 @@ class Moderation(commands.Cog):
             color=discord.Color.green(),
         )
         embed.set_footer(
-            text=f"'Clear' command run by {ctx.message.author} for {amount} messages",
+            text=f"`clear` command run by {ctx.message.author} for {amount} messages",
             icon_url=ctx.author.avatar,
         )
 

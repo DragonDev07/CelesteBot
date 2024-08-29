@@ -20,11 +20,12 @@ A starry discord bot!
 ## Roadmap
 
 - [ ] Fix `ping` command to return ping duration in ms
+- [ ] User join guild event
+- [ ] Queueing for audio
 - [x] `clear` command to clear number of messages from discord chat
 - [x] `userinfo` command to get a user's information
 - [x] `help` command
 - [x] Permission managing for each command
-- [ ] User join guild event
 - [x] OnReady event
-- [ ] Media commands (play youtube audio, etc.)
+- [x] Media commands (play youtube audio, etc.)
 - [x] Replace all replies with Embeds

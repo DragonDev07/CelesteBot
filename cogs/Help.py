@@ -32,13 +32,17 @@ class Help(commands.Cog):
             inline=False,
         )
         embed.add_field(
+            name="Media Commands",
+            value="• /join - Joins the voice channel of the user\n• /leave - Leaves the voice channel of the user\n• /play <url> - Plays a given youtube URL\n• /pause - Pauses the current song\n• /resume - Resumes the current song\n• /stop - Stops the current song\n• /volume <optional: percentage> - Changes the volume of the bot, if no percentage is given, it will display the current volume",
+        )
+        embed.add_field(
             name="Cogs (DEBUG INFO FOR DEVELOPERS)",
             value="• Developer\n• Moderation\n• Help",
             inline=False,
         )
         embed.footer(
             name="Created w/ ❤️ by",
-            value="Teo Welton (@furthestdrop) !",
+            value="Teo Welton (@furthestdrop)",
             inline=True,
         )
 

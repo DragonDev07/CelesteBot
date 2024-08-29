@@ -54,7 +54,7 @@ class Developer(commands.Cog):
                 color=discord.Color.green(),
             )
             embed.set_footer(
-                text=f"'loadcog' command was run by {ctx.message.author} on the {cogname} cog",
+                text=f"`loadcog` command was run by {ctx.message.author} on the {cogname} cog",
                 icon_url=ctx.author.avatar,
             )
 
@@ -101,7 +101,7 @@ class Developer(commands.Cog):
                 color=discord.Color.green(),
             )
             embed.set_footer(
-                text=f"'unloadcog' command was run by {ctx.message.author} on the {cogname} cog",
+                text=f"`unloadcog` command was run by {ctx.message.author} on the {cogname} cog",
                 icon_url=ctx.author.avatar,
             )
 

@@ -8,6 +8,7 @@ import os
 class Media(commands.Cog):
     def __init__(self, client):
         self.client = client
+        self.queues = {}
 
     # Log that this cog was loaded
     @commands.Cog.listener()
@@ -169,6 +170,10 @@ class Media(commands.Cog):
         # Defer the response
         await ctx.defer()
 
+        # Initialize the queue for the guild if it doesn't exist
+        if ctx.guild.id not in self.queues:
+            self.queues[ctx.guild.id] = []
+
         # Get voice instance
         voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
 
@@ -184,8 +189,38 @@ class Media(commands.Cog):
             await ctx.send(embed=embed)
             return
 
-        # Get guild instance
-        guild = ctx.message.guild
+        # Add the URL to the queue
+        self.queues[ctx.guild.id].append(url)
+
+        # Send an embed that the URL was added to the queue to the command user
+        embed = discord.Embed(
+            title="Added to Queue",
+            description=f"Added: {url} to the queue",
+            color=discord.Color.green(),
+        )
+        embed.set_footer(
+            text=f"'play' command was run by {ctx.message.author}",
+            icon_url=ctx.author.avatar,
+        )
+
+        await ctx.send(embed=embed)
+
+        # Play the next song in the queue
+        await self.play_next(ctx)
+
+        # Print that the command was run
+        print(
+            f"The 'play' command was run by {ctx.message.author}, adding video {url} to the queue"
+        )
+
+    async def play_next(self, ctx):
+        if ctx.guild.id not in self.queues or not self.queues[ctx.guild.id]:
+            return
+
+        url = self.queues[ctx.guild.id].pop(0)
+
+        # Get voice instance
+        voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
 
         # Get youtube video
         yt = YouTube(url)
@@ -194,7 +229,7 @@ class Media(commands.Cog):
 
         # Play downloaded audio file
         path = "tmp/temp_audio.mp3"
-        voice.play(discord.FFmpegPCMAudio(path), after=lambda x: end_song(guild, path))
+        voice.play(discord.FFmpegPCMAudio(path), after=lambda x: end_song(ctx, path))
         voice.source = discord.PCMVolumeTransformer(voice.source, 1)
 
         # Send a response embed to the command user
@@ -208,12 +243,12 @@ class Media(commands.Cog):
             icon_url=ctx.author.avatar,
         )
 
-        await ctx.send(embed=embed)
+        await ctx.channel.send(embed=embed)
 
-        # Print that the command was run
-        print(
-            f"The `play` command was run by {ctx.message.author}, playing video {url}"
-        )
+    def end_song(self, ctx, path):
+        os.remove(path)
+        # Play the next song in the queue
+        self.client.loop.create_task(self.play_next(ctx))
 
     # Command that stops playing audio (deletes file, cannot be resumed)
     @commands.hybrid_command(
@@ -317,7 +352,3 @@ class Media(commands.Cog):
 
 async def setup(client):
     await client.add_cog(Media(client))
-
-
-def end_song(guild, path):
-    os.remove(path)

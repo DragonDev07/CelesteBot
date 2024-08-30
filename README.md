@@ -17,6 +17,31 @@ A starry discord bot!
 | `/loadcog`   | \* `cogname` (required): Name of the cog to load -> See `/help`                              | Loads a given cog (BOT OWNER ONLY)                             |
 | `/unloadcog` | \* `cogname` (required): Name of the cog to unload -> See `/help`                            | Unloads a given cog (BOT OWNER ONLY)                           |
 
+## Usage
+### Add to Your Server
+- Coming soon, dont have hosting.
+### Running Yourself
+1. Clone the repository & Enter the directory:
+```
+git clone https://github.com/DragonDev07/CelesteBot/
+cd CelesteBot
+```
+
+2. Install all python requirements
+```
+pip install -r requirements.txt
+```
+
+3. Put your token in a .env file, like so:
+```
+TOKEN = <YOUR TOKEN HERE>
+```
+
+4. Run `main.py`!
+```
+python main.py
+```
+
 ## Roadmap
 
 - [ ] Fix `ping` command to return ping duration in ms

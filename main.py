@@ -24,6 +24,13 @@ async def on_ready():
     # Sync Commands
     loaded_commands = await client.tree.sync()
 
+    # Change bot's presence
+    await client.change_presence(
+        activity=discord.Activity(
+            type=discord.ActivityType.watching, name="over the server"
+        )
+    )
+
     # Print bot is online
     print(f"{client.user} is now online.")
 

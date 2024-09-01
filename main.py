@@ -27,7 +27,7 @@ async def on_ready():
     # Change bot's presence
     await client.change_presence(
         activity=discord.Activity(
-            type=discord.ActivityType.watching, name="over the server"
+            type=discord.ActivityType.playing, name="/help"
         )
     )
 

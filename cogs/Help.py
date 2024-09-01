@@ -33,17 +33,17 @@ class Help(commands.Cog):
         )
         embed.add_field(
             name="Media Commands",
-            value="• /join - Joins the voice channel of the user\n• /leave - Leaves the voice channel of the user\n• /play <url> - Plays a given youtube URL\n• /pause - Pauses the current song\n• /resume - Resumes the current song\n• /stop - Stops the current song\n• /volume <optional: percentage> - Changes the volume of the bot, if no percentage is given, it will display the current volume",
+            value="• /join - Joins the voice channel of the user\n• /leave - Leaves the voice channel of the user\n• /play <url> - Plays a given YouTube URL\n• /pause - Pauses the current song\n• /resume - Resumes the current song\n• /stop - Stops the current song\n• /skip - Skips the current song\n• /volume <optional: percentage> - Changes the volume of the bot, if no percentage is given, it will display the current volume",
+            inline=False,
         )
         embed.add_field(
             name="Cogs (DEBUG INFO FOR DEVELOPERS)",
-            value="• Developer\n• Moderation\n• Help",
+            value="• Developer\n• Moderation\n• Help\n• Media",
             inline=False,
         )
-        embed.footer(
-            name="Created w/ ❤️ by",
-            value="Teo Welton (@furthestdrop)",
-            inline=True,
+        embed.set_footer(
+            text="Made w/ ❤️ by Teo Welton (@furthestdrop)",
+            icon_url="https://cdn.discordapp.com/avatars/635175805261054004/eb0be0c1b453b820d95b9a972acaf584.png?size=1024",
         )
 
         # Send the embed

@@ -98,4 +98,4 @@ class Utility(commands.Cog):
 
 
 async def setup(client):
-    client.add_cog(Utility(client))
+    await client.add_cog(Utility(client))

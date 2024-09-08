@@ -97,38 +97,6 @@ class Moderation(commands.Cog):
             f"The 'clear' command has been run by {ctx.message.author} and cleared {amount} messages"
         )
 
-    # Userinfo Command
-    @commands.hybrid_command(
-        name="userinfo", description="Get information about a specified user"
-    )
-    async def userinfo(self, ctx, member: discord.Member):
-        # Create an embed with the user's information
-        embed = discord.Embed(
-            title=f"{member}",
-            color=discord.Color.blue(),
-        )
-        embed.add_field(name="ID", value=member.id, inline=False)
-        embed.add_field(
-            name="Joined Server",
-            value=member.joined_at.strftime("%Y-%m-%d %H:%M:%S"),
-            inline=False,
-        )
-        embed.add_field(
-            name="Created Account",
-            value=member.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-            inline=False,
-        )
-        roles = ", ".join([role.name for role in member.roles])
-        embed.add_field(name="Roles", value=roles, inline=False)
-        embed.set_thumbnail(url=member.avatar)
-        embed.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar)
-
-        # Send the embed
-        await ctx.send(embed=embed)
-
-        # Print to the console that the command has been run
-        print(f"The 'userinfo' command was run by {ctx.message.author} on {member}")
-
 
 async def setup(client):
     await client.add_cog(Moderation(client))

@@ -14,7 +14,7 @@ class Help(commands.Cog):
     # Propagate the errors to the global error handler
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        await self.bot.on_command_error(ctx, error)
+        await self.client.on_command_error(ctx, error)
 
     # Help command which lists all cogs, commands, prefixes, etc.
     @commands.hybrid_command(

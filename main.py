@@ -22,13 +22,11 @@ client = commands.Bot(command_prefix=">", intents=intents, help_command=None)
 @client.event
 async def on_ready():
     # Sync Commands
-    loaded_commands = await client.tree.sync()
+    _loaded_commands = await client.tree.sync()
 
     # Change bot's presence
     await client.change_presence(
-        activity=discord.Activity(
-            type=discord.ActivityType.playing, name="/help"
-        )
+        activity=discord.Activity(type=discord.ActivityType.playing, name="/help")
     )
 
     # Print bot is online
@@ -43,7 +41,6 @@ async def on_member_join(member):
         title="Welcome!",
         description=f"Welcome to the server {member}!",
         color=discord.Color.green(),
-        image_url=member.avatar,
     )
 
     # Get the channel to send the welcome message
@@ -55,7 +52,7 @@ async def on_member_join(member):
 
         print(f"Sent welcome message to {member} in {member.guild}")
     else:
-        print("Could not run `on_member_join()` -> No system channel found")
+        print("Could not run `on_member_join()` - No system channel found")
 
 
 # Error Handling
@@ -73,7 +70,11 @@ async def load_cogs():
 
 async def main():
     await load_cogs()
-    await client.start(TOKEN)
+
+    if TOKEN:
+        await client.start(TOKEN)
+    else:
+        print("No token found.")
 
 
 # Run the bot

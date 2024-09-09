@@ -1,3 +1,6 @@
+# Pyright Config
+pyrightconfig.json
+
 # Tmp files
 tmp/
 

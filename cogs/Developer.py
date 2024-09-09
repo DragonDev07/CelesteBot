@@ -14,18 +14,18 @@ class Developer(commands.Cog):
     # Propagate the errors to the global error handler
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        await self.bot.on_command_error(ctx, error)
+        await self.client.on_command_error(ctx, error)
 
     # Command to load a cog
     @commands.hybrid_command(name="loadcog", description="Load a cog")
     @commands.is_owner()
-    async def loadcog(self, ctx, cogname: str = None):
+    async def loadcog(self, ctx, cogname=None):
         # Check if cogname is None
         if cogname is None:
             # If it is, send a embed to the command user to provide a cog
             embed = discord.Embed(
                 title="Error",
-                description=f"Please provide the name of a cog to load (see /help)",
+                description="Please provide the name of a cog to load (see /help)",
                 color=discord.Color.red(),
             )
 
@@ -66,13 +66,13 @@ class Developer(commands.Cog):
     # Command to unload a cog
     @commands.hybrid_command(name="unloadcog", description="Unloads a cog from the bot")
     @commands.is_owner()
-    async def unloadcog(self, ctx, *, cogname: str = None):
+    async def unloadcog(self, ctx, *, cogname=None):
         # Check if cogname is None
         if cogname is None:
             # If it is, send a embed to the command user to provide a cog
             embed = discord.Embed(
                 title="Error",
-                description=f"Please provide the name of a cog to unload (see /help)",
+                description="Please provide the name of a cog to unload (see /help)",
                 color=discord.Color.red(),
             )
 

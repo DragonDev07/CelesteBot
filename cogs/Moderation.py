@@ -14,12 +14,12 @@ class Moderation(commands.Cog):
     # Propagate the errors to the global error handler
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        await self.bot.on_command_error(ctx, error)
+        await self.client.on_command_error(ctx, error)
 
     # Kick Command
     @commands.hybrid_command(name="kick", description="Kick a member from the server")
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, member: discord.Member, *, reason: str = None):
+    async def kick(self, ctx, member: discord.Member, *, reason=None):
         # Kick the member from the guild
         await ctx.guild.kick(member, reason=reason)
 
@@ -44,7 +44,7 @@ class Moderation(commands.Cog):
     # Ban Command
     @commands.hybrid_command(name="ban", description="Ban a member from the server")
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, member: discord.Member, *, reason: str = None):
+    async def ban(self, ctx, member: discord.Member, *, reason=None):
         # Ban the member from the guild
         await ctx.guild.ban(member, reason=reason)
 

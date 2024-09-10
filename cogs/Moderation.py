@@ -16,7 +16,8 @@ class Moderation(commands.Cog):
     async def on_command_error(self, ctx, error):
         await self.client.on_command_error(ctx, error)
 
-    # Kick Command
+    # `kick` Command
+    # Kicks a given member from the server
     @commands.hybrid_command(name="kick", description="Kick a member from the server")
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member: discord.Member, *, reason=None):
@@ -41,7 +42,8 @@ class Moderation(commands.Cog):
             f"The 'kick' command has been run on {member} by {ctx.message.author} for reason {reason}"
         )
 
-    # Ban Command
+    # `ban` Command
+    # Bans a given member from the server
     @commands.hybrid_command(name="ban", description="Ban a member from the server")
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member: discord.Member, *, reason=None):
@@ -66,7 +68,8 @@ class Moderation(commands.Cog):
             f"The 'ban' command has been run on {member} by {ctx.message.author} for reason {reason}"
         )
 
-    # Clear Command
+    # `clear` Command
+    # Clears a specified number of messages from the channels
     @commands.hybrid_command(
         name="clear", description="Clear a specified amount of messages"
     )

@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from discord import FFmpegPCMAudio
 from pytubefix import YouTube
 import os
 import asyncio
@@ -22,7 +21,8 @@ class Media(commands.Cog):
     async def on_command_error(self, ctx, error):
         await self.client.on_command_error(ctx, error)
 
-    # Command that makes the bot join the voice channel
+    # `join` Command
+    # Makes the bot join the user's voice channel
     @commands.hybrid_command(name="join", description="Join the voice channel")
     async def join(self, ctx):
         # Check if the author is in a voice channel
@@ -58,7 +58,8 @@ class Media(commands.Cog):
         # Print that the command was run
         print(f"The 'join' command was run by {ctx.message.author}")
 
-    # Command that makes the bot leave the voice channel
+    # `leave` Command
+    # Makes the bot leave the active voice channel
     @commands.hybrid_command(name="leave", description="Leave the voice channel")
     async def leave(self, ctx):
         # Get voice instance
@@ -94,7 +95,11 @@ class Media(commands.Cog):
         # Print that the command was run
         print(f"The 'leave' command was run by {ctx.message.author}")
 
-    # Command to get or set volume of the audio
+    # `volume` Command
+    # Get or set the volume of the audio
+    # Provides the current volume if no volume percentage is provided
+    # Default volume is 100%
+    # Volume percentage must be between 0 and 200
     @commands.hybrid_command(
         name="volume", description="Get or set the volume of the audio"
     )
@@ -125,7 +130,7 @@ class Media(commands.Cog):
             return
 
         # Check if the percent is None
-        if percent == None:
+        if percent is None:
             # If the percent is None, send a response embed to the command user
             embed = discord.Embed(
                 title="Volume",
@@ -160,7 +165,8 @@ class Media(commands.Cog):
             f"The 'volume' command was run by {ctx.message.author} to set the volume to {percent}%"
         )
 
-    # Command that pauses the currently playing audio
+    # `pause` Command
+    # Pauses the currently playing audio
     @commands.hybrid_command(
         name="pause", description="Pause the currently playing audio"
     )
@@ -198,7 +204,8 @@ class Media(commands.Cog):
         # Print that the command was run
         print(f"The 'pause' command was run by {ctx.message.author}")
 
-    # Command that resumes the currently paused audio
+    # `resume` Command
+    # Resumes the currently paused audio
     @commands.hybrid_command(
         name="resume", description="Resume the currently paused audio"
     )
@@ -235,7 +242,8 @@ class Media(commands.Cog):
         # Print that the command was run
         print(f"The 'resume' command was run by {ctx.message.author}")
 
-    # Command that skips the currently playing audio
+    # `skip` Command
+    # Skips the currently playing audio to the next audio in the queue
     @commands.hybrid_command(
         name="skip", description="Skip the currently playing audio"
     )
@@ -278,7 +286,8 @@ class Media(commands.Cog):
         # Print that the command was run
         print(f"The 'skip' command was run by {ctx.message.author}")
 
-    # Command that stops the currently playing audio
+    # `stop` Command
+    # Stops the currently playing audio and clears the queue
     @commands.hybrid_command(
         name="stop", description="Stop playing audio (cannot be resumed)"
     )
@@ -322,7 +331,8 @@ class Media(commands.Cog):
         # Print that the command was run
         print(f"The 'stop' command was run by {ctx.message.author}")
 
-    # Command that plays audio from a YouTube URL
+    # `play` Command
+    # Plays audio from a given YouTube URL
     @commands.hybrid_command(name="play", description="Play audio from a YouTube URL")
     async def play(self, ctx, url):
         # Defer the response

@@ -16,7 +16,8 @@ class Help(commands.Cog):
     async def on_command_error(self, ctx, error):
         await self.client.on_command_error(ctx, error)
 
-    # Help command which lists all cogs, commands, prefixes, etc.
+    # `help` Command
+    # Lists all cogs, commands, prefixes, etc.
     @commands.hybrid_command(
         name="help", description="List all cogs, commands, prefixes, etc."
     )

@@ -16,7 +16,13 @@ class Utility(commands.Cog):
     async def on_command_error(self, ctx, error):
         await self.client.on_command_error(ctx, error)
 
-    # Userinfo Command
+    # `userinfo` Command
+    # Gets information about a given user
+    #   - User ID
+    #   - Date and Time of Server Join
+    #   - Date and Time of Account Creation
+    #   - Roles
+    #   - Avatar
     @commands.hybrid_command(
         name="userinfo", description="Get information about a specified user"
     )
@@ -48,7 +54,14 @@ class Utility(commands.Cog):
         # Print to the console that the command has been run
         print(f"The 'userinfo' command was run by {ctx.message.author} on {member}")
 
-    # Serverinfo Command
+    # `serverinfo` Command
+    # Gets information about the server
+    #   - Server Icon
+    #   - Server Creation Date and Time
+    #   - Server Owner
+    #   - Number of members
+    #   - Number of roles
+    #   - Number of channels
     @commands.hybrid_command(
         name="serverinfo", description="Get information about the server"
     )
@@ -85,6 +98,8 @@ class Utility(commands.Cog):
             f"The 'serverinfo' command was run by {ctx.message.author} on {ctx.guild}"
         )
 
+    # `ping` Command
+    # Command to get the bot's latency
     @commands.hybrid_command(name="ping", description="Get the bot's latency")
     async def ping(self, ctx):
         # Get the bot's latency

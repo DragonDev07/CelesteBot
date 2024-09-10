@@ -16,7 +16,9 @@ class Developer(commands.Cog):
     async def on_command_error(self, ctx, error):
         await self.client.on_command_error(ctx, error)
 
-    # Command to load a cog
+    # `loadcog` Command
+    # Loads a given cog
+    # Can only be run by the bot owner
     @commands.hybrid_command(name="loadcog", description="Load a cog")
     @commands.is_owner()
     async def loadcog(self, ctx, cogname=None):
@@ -63,7 +65,9 @@ class Developer(commands.Cog):
         # Print to the console that the command has been run
         print(f"The 'loadcog' command was run by {ctx.message.author}")
 
-    # Command to unload a cog
+    # `unloadcog` Command
+    # Unloads a given cog
+    # Can only be run by the bot owner
     @commands.hybrid_command(name="unloadcog", description="Unloads a cog from the bot")
     @commands.is_owner()
     async def unloadcog(self, ctx, *, cogname=None):
@@ -112,7 +116,9 @@ class Developer(commands.Cog):
             f"The 'unloadcog' command was run by {ctx.message.author} on {cogname} cog"
         )
 
-    # Command to reload all commands
+    # `reload` Command
+    # Re-registers all application commands
+    # Can only be run by the bot owner
     @commands.hybrid_command(name="reload", description="Reloads all commands")
     @commands.is_owner()
     async def reload(self, ctx):

@@ -6,25 +6,48 @@ A starry discord bot!
 
 ## Commands!
 
-| Command      | Options                                                                                      | Description                                                                     |
-| ------------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `/help`      | N/A                                                                                          | Replies with an embed containing commands and how to use them.                  |
-| `/ping`      | N/A                                                                                          | Replies with `Pong!` and the ping duration in ms                                |
-| `/userinfo`  | \* `member` (required): Member to get information of                                         | Gets a members information                                                      |
-| `/kick`      | \* `member` (required): Member to kick <br/> \* `reason` (optional): Reason for kicking user | Kicks user from guild                                                           |
-| `/ban`       | \* `member` (required): Member to ban <br/> \* `reason` (optional): Reason for banning user  | Bans user from guild                                                            |
-| `/clear`     | \* `amount` (required): Number of messages to purge                                          | Clears a given number of messages from the channel                              |
-| `/loadcog`   | \* `cogname` (required): Name of the cog to load -> See `/help`                              | Loads a given cog (BOT OWNER ONLY)                                              |
-| `/unloadcog` | \* `cogname` (required): Name of the cog to unload -> See `/help`                            | Unloads a given cog (BOT OWNER ONLY)                                            |
-| `/volume`    | \* `volume` (optional): Percent to set volume to (eg. `50`)                                  | Gets or sets the volume based on whether or not the `percent` value is provided |
-| `/play`      | \* `url` (required): YouTube URL to play from                                                | Plays audio from a given YouTube URL                                            |
-| `/reload`    | N/A                                                                                          | Re-Registers all application commands                                           |
-| `/join`      | N/A                                                                                          | Makes the bot join your current VC                                              |
-| `/leave`     | N/A                                                                                          | Makes the bot leave its active VC                                               |
-| `/pause`     | N/A                                                                                          | Pauses currently playing audio                                                  |
-| `/resume`    | N/A                                                                                          | Resumes audio                                                                   |
-| `/skip`      | N/A                                                                                          | Skips to the next song in the queue                                             |
-| `/stop`      | N/A                                                                                          | Stops any playing audio and clears the queue                                    |
+### Developer Cog (Can Only be run by the bot owner)
+
+| **Command**  | **Options**                                                       | **Description**                       |
+| ------------ | ----------------------------------------------------------------- | ------------------------------------- |
+| `/loadcog`   | \* `cogname` (required): Name of the cog to load -> See `/help`   | Loads a given cog                     |
+| `/unloadcog` | \* `cogname` (required): Name of the cog to unload -> See `/help` | Unloads a given cog                   |
+| `/reload`    | N/A                                                               | Re-Registers all application commands |
+
+### Help Cog
+
+| **Command** | **Options** | **Description**                                                |
+| ----------- | ----------- | -------------------------------------------------------------- |
+| `/help`     | N/A         | Replies with an embed containing commands and how to use them. |
+
+### Media Cog
+
+| **Command** | **Options**                                                 | **Description**                                                                 |
+| ----------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `/join`     | N/A                                                         | Makes the bot join your current VC                                              |
+| `/leave`    | N/A                                                         | Makes the bot leave its active VC                                               |
+| `/volume`   | \* `volume` (optional): Percent to set volume to (eg. `50`) | Gets or sets the volume based on whether or not the `percent` value is provided |
+| `/pause`    | N/A                                                         | Pauses currently playing audio                                                  |
+| `/resume`   | N/A                                                         | Resumes audio                                                                   |
+| `/skip`     | N/A                                                         | Skips to the next song in the queue                                             |
+| `/stop`     | N/A                                                         | Stops any playing audio and clears the queue                                    |
+| `/play`     | \* `url` (required): YouTube URL to play from               | Plays audio from a given YouTube URL                                            |
+
+### Moderation Cog
+
+| **Command** | **Options**                                                                                  | **Description**                                    |
+| ----------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| `/kick`     | \* `member` (required): Member to kick <br/> \* `reason` (optional): Reason for kicking user | Kicks user from guild                              |
+| `/ban`      | \* `member` (required): Member to ban <br/> \* `reason` (optional): Reason for banning user  | Bans user from guild                               |
+| `/clear`    | \* `amount` (required): Number of messages to purge                                          | Clears a given number of messages from the channel |
+
+### Utility Cog
+
+| **Command**   | **Options**                                          | **Description**                                  |
+| ------------- | ---------------------------------------------------- | ------------------------------------------------ |
+| `/userinfo`   | \* `member` (required): Member to get information of | Gets a members information                       |
+| `/serverinfo` | N/A                                                  | Gets information about the server                |
+| `/ping`       | N/A                                                  | Replies with `Pong!` and the bot's latency in ms |
 
 ## Usage
 
@@ -61,9 +84,9 @@ python main.py
 
 ## Roadmap
 
-- [ ] Fix `ping` command to return ping duration in ms
+- [x] Fix `ping` command to return ping duration in ms
 - [ ] User join guild event
-- [ ] Queueing for audio
+- [x] Queueing for audio
 - [x] `clear` command to clear number of messages from discord chat
 - [x] `userinfo` command to get a user's information
 - [x] `help` command
@@ -71,3 +94,12 @@ python main.py
 - [x] OnReady event
 - [x] Media commands (play youtube audio, etc.)
 - [x] Replace all replies with Embeds
+- [ ] Poll command
+- [ ] Fix logging to follow format of `[<TIME>] - <GUILD> - <COMMAND> - <USER> - <OPTIONS>`
+  - [ ] Make logging work with systemd
+- [ ] Proper bot permissions
+- [ ] Bot invite link
+- [ ] `/queue` command to get media queue
+- [ ] Update bot icon & make custom banner
+- [ ] (maybe) Dynamically generate help command
+- [ ] (maybe) Figure out a way to only register Developer commands in a specific server

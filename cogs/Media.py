@@ -4,17 +4,19 @@ from pytubefix import YouTube
 import os
 import asyncio
 import time
+from utils.helper_functions import send_command_log, send_generic_log
 
 
 class Media(commands.Cog):
     def __init__(self, client):
         self.client = client
+        self.cog_name = "Media"
         self.queues = {}
 
     # Log that the cog was loaded
     @commands.Cog.listener()
     async def on_ready(self):
-        print("The 'Media' cog has been loaded")
+        await send_generic_log("Loaded 'Media' cog")
 
     # Propagate the error to the global error handler
     @commands.Cog.listener()
@@ -55,16 +57,13 @@ class Media(commands.Cog):
 
             await ctx.send(embed=embed)
 
-        # Print that the command was run
-        print(f"The 'join' command was run by {ctx.message.author}")
+        # Log that the command was run
+        await send_command_log(self, ctx, "join")
 
     # `leave` Command
     # Makes the bot leave the active voice channel
     @commands.hybrid_command(name="leave", description="Leave the voice channel")
     async def leave(self, ctx):
-        # Get voice instance
-        voice = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
-
         # Check if the bot is in a voice channel
         if ctx.voice_client:
             # Disconnect from the voice channel
@@ -92,8 +91,8 @@ class Media(commands.Cog):
 
             await ctx.send(embed=embed)
 
-        # Print that the command was run
-        print(f"The 'leave' command was run by {ctx.message.author}")
+        # Log that the command was run
+        await send_command_log(self, ctx, "leave")
 
     # `volume` Command
     # Get or set the volume of the audio
@@ -160,10 +159,8 @@ class Media(commands.Cog):
 
             await ctx.send(embed=embed)
 
-        # Print that the command was run
-        print(
-            f"The 'volume' command was run by {ctx.message.author} to set the volume to {percent}%"
-        )
+        # Log that the command was run
+        await send_command_log(self, ctx, "volume")
 
     # `pause` Command
     # Pauses the currently playing audio
@@ -201,8 +198,8 @@ class Media(commands.Cog):
 
             await ctx.send(embed=embed)
 
-        # Print that the command was run
-        print(f"The 'pause' command was run by {ctx.message.author}")
+        # Log that the command was run
+        await send_command_log(self, ctx, "pause")
 
     # `resume` Command
     # Resumes the currently paused audio
@@ -239,8 +236,8 @@ class Media(commands.Cog):
 
             await ctx.send(embed=embed)
 
-        # Print that the command was run
-        print(f"The 'resume' command was run by {ctx.message.author}")
+        # Log that the command was run
+        await send_command_log(self, ctx, "resume")
 
     # `skip` Command
     # Skips the currently playing audio to the next audio in the queue
@@ -283,8 +280,8 @@ class Media(commands.Cog):
 
             await ctx.send(embed=embed)
 
-        # Print that the command was run
-        print(f"The 'skip' command was run by {ctx.message.author}")
+        # Log that the command was run
+        await send_command_log(self, ctx, "skip")
 
     # `stop` Command
     # Stops the currently playing audio and clears the queue
@@ -328,8 +325,8 @@ class Media(commands.Cog):
 
             await ctx.send(embed=embed)
 
-        # Print that the command was run
-        print(f"The 'stop' command was run by {ctx.message.author}")
+        # Log that the command was run
+        await send_command_log(self, ctx, "stop")
 
     # `play` Command
     # Plays audio from a given YouTube URL
@@ -381,10 +378,8 @@ class Media(commands.Cog):
 
         await ctx.send(embed=embed)
 
-        # Print that the command was run
-        print(
-            f"The `play` command was run by {ctx.message.author}, added video {url} to queue"
-        )
+        # Log that the command was run
+        await send_command_log(self, ctx, "play")
 
     # Function that plays the next audio in the queue
     async def play_next(self, ctx):
@@ -429,9 +424,6 @@ class Media(commands.Cog):
             )
 
             await ctx.send(embed=embed)
-
-            # Print that the audio is playing
-            print(f"Playing video {url} in {guild}")
 
     # Function that ends the currently playing audio
     def end_song(self, ctx, guild, path):

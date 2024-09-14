@@ -1,15 +1,17 @@
 import discord
 from discord.ext import commands
+from utils.helper_functions import send_command_log, send_generic_log
 
 
 class Moderation(commands.Cog):
     def __init__(self, client):
         self.client = client
+        self.cog_name = "Moderation"
 
     # Log that the Cog has been loaded
     @commands.Cog.listener()
     async def on_ready(self):
-        print("The 'Moderation' cog has been loaded")
+        await send_generic_log("Loaded 'Moderation' cog")
 
     # Propagate the errors to the global error handler
     @commands.Cog.listener()
@@ -37,10 +39,8 @@ class Moderation(commands.Cog):
         # Send the embed as a response
         await ctx.send(embed=embed)
 
-        # Print to the console that the command has been run
-        print(
-            f"The 'kick' command has been run on {member} by {ctx.message.author} for reason {reason}"
-        )
+        # Log that the command has been run
+        await send_command_log(self, ctx, "kick")
 
     # `ban` Command
     # Bans a given member from the server
@@ -63,10 +63,8 @@ class Moderation(commands.Cog):
         # Send the embed as a response
         await ctx.send(embed=embed)
 
-        # Print to the console that the command has been run
-        print(
-            f"The 'ban' command has been run on {member} by {ctx.message.author} for reason {reason}"
-        )
+        # Log that the command has been run
+        await send_command_log(self, ctx, "ban")
 
     # `clear` Command
     # Clears a specified number of messages from the channels
@@ -95,10 +93,8 @@ class Moderation(commands.Cog):
         # Send a response to the command user
         await ctx.send(embed=embed)
 
-        # Print to the console that the command has been run
-        print(
-            f"The 'clear' command has been run by {ctx.message.author} and cleared {amount} messages"
-        )
+        # Log that the command has been run
+        await send_command_log(self, ctx, "clear")
 
 
 async def setup(client):

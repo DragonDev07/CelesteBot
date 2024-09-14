@@ -1,15 +1,17 @@
 import discord
 from discord.ext import commands
+from utils.helper_functions import send_command_log, send_generic_log
 
 
 class Developer(commands.Cog):
     def __init__(self, client):
         self.client = client
+        self.cog_name = "Developer"
 
     # Log that the cog was loaded
     @commands.Cog.listener()
     async def on_ready(self):
-        print("The 'Developer' cog has been loaded")
+        await send_generic_log("Loaded 'Developer' cog")
 
     # Propagate the errors to the global error handler
     @commands.Cog.listener()
@@ -62,8 +64,8 @@ class Developer(commands.Cog):
 
             await ctx.send(embed=embed)
 
-        # Print to the console that the command has been run
-        print(f"The 'loadcog' command was run by {ctx.message.author}")
+        # Log that the command was run
+        await send_command_log(self, ctx, "loadcog")
 
     # `unloadcog` Command
     # Unloads a given cog
@@ -111,10 +113,8 @@ class Developer(commands.Cog):
 
             await ctx.send(embed=embed)
 
-        # Print to the console that the command has been run
-        print(
-            f"The 'unloadcog' command was run by {ctx.message.author} on {cogname} cog"
-        )
+        # Log that the command was run
+        await send_command_log(self, ctx, "unloadcog")
 
     # `reload` Command
     # Re-registers all application commands
@@ -131,8 +131,8 @@ class Developer(commands.Cog):
         # Send a message to the command user
         await ctx.send("Commands reloaded!")
 
-        # Print to the console that the command has been run
-        print(f"The 'reload' command was run by {ctx.message.author}")
+        # Log that the command was run
+        await send_command_log(self, ctx, "reload")
 
 
 async def setup(client):

@@ -1,8 +1,13 @@
 import asyncio
 import os
+import sys
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+from utils.helper_functions import send_generic_log
+
+# Add the src directory to the Python path
+sys.path.append(os.path.join(os.path.dirname(__file__), "cogs"))
 
 # Load `.env` environment variables
 load_dotenv()
@@ -29,8 +34,8 @@ async def on_ready():
         activity=discord.Activity(type=discord.ActivityType.playing, name="/help")
     )
 
-    # Print bot is online
-    print(f"{client.user} is now online.")
+    # Log that the bot is online
+    await send_generic_log(f"Logged in as {client.user}")
 
 
 # On User Join Event
@@ -42,6 +47,7 @@ async def on_member_join(member):
         description=f"Welcome to the server {member}!",
         color=discord.Color.green(),
     )
+    embed.set_thumbnail(url=member.avatar)
 
     # Get the channel to send the welcome message
     channel = member.guild.system_channel
@@ -50,7 +56,8 @@ async def on_member_join(member):
         # Send the welcome message
         await channel.send(embed=embed)
 
-        print(f"Sent welcome message to {member} in {member.guild}")
+        # Log that a welcome message was sent
+        await send_generic_log(f"{member.guild} | on_member_join() | {member}")
     else:
         print("Could not run `on_member_join()` - No system channel found")
 

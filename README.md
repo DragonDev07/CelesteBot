@@ -85,7 +85,7 @@ python main.py
 ## Roadmap
 
 - [x] Fix `ping` command to return ping duration in ms
-- [ ] User join guild event
+- [x] User join guild event
 - [x] Queueing for audio
 - [x] `clear` command to clear number of messages from discord chat
 - [x] `userinfo` command to get a user's information
@@ -95,7 +95,7 @@ python main.py
 - [x] Media commands (play youtube audio, etc.)
 - [x] Replace all replies with Embeds
 - [ ] Poll command
-- [ ] Fix logging to follow format of `[<TIME>] - <GUILD> - <COMMAND> - <USER> - <OPTIONS>`
+- [x] Fix logging to follow format of `[<TIME>] [Guild: <GUILD>]: <COG> - <COMMAND/EVENT> - <USER> - <OPTIONS>`
   - [ ] Make logging work with systemd
 - [ ] Proper bot permissions
 - [ ] Bot invite link

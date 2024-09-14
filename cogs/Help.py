@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from utils.helper_functions import send_generic_log
 
 
 class Help(commands.Cog):
@@ -9,7 +10,7 @@ class Help(commands.Cog):
     # Log that the cog has been laoded
     @commands.Cog.listener()
     async def on_ready(self):
-        print("The 'Help' cog has been loaded")
+        await send_generic_log("Loaded 'Help' cog")
 
     # Propagate the errors to the global error handler
     @commands.Cog.listener()

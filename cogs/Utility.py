@@ -1,15 +1,17 @@
 import discord
 from discord.ext import commands
+from utils.helper_functions import send_command_log, send_generic_log
 
 
 class Utility(commands.Cog):
     def __init__(self, client):
         self.client = client
+        self.cog_name = "Utility"
 
     # Log that the Cog has been loaded
     @commands.Cog.listener()
     async def on_ready(self):
-        print("The 'Moderation' cog has been loaded")
+        await send_generic_log("Loaded 'Utility' cog")
 
     # Propagate the errors to the global error handler
     @commands.Cog.listener()
@@ -18,6 +20,8 @@ class Utility(commands.Cog):
 
     # `userinfo` Command
     # Gets information about a given user
+    #
+    # Provided Information:
     #   - User ID
     #   - Date and Time of Server Join
     #   - Date and Time of Account Creation
@@ -51,11 +55,13 @@ class Utility(commands.Cog):
         # Send the embed
         await ctx.send(embed=embed)
 
-        # Print to the console that the command has been run
-        print(f"The 'userinfo' command was run by {ctx.message.author} on {member}")
+        # Send a log that the command has been run
+        await send_command_log(self, ctx, "userinfo")
 
     # `serverinfo` Command
     # Gets information about the server
+    #
+    # Provided Information:
     #   - Server Icon
     #   - Server Creation Date and Time
     #   - Server Owner
@@ -93,10 +99,8 @@ class Utility(commands.Cog):
         # Send the embed
         await ctx.send(embed=embed)
 
-        # Print to the console that the command has been run
-        print(
-            f"The 'serverinfo' command was run by {ctx.message.author} on {ctx.guild}"
-        )
+        # Send a log that the command has been run
+        await send_command_log(self, ctx, "serverinfo")
 
     # `ping` Command
     # Command to get the bot's latency
@@ -108,8 +112,8 @@ class Utility(commands.Cog):
         # Send the latency as a response
         await ctx.send(f":ping_pong: Pong! {latency}ms")
 
-        # Print to the console that the command has been run
-        print(f"The 'ping' command was run by {ctx.message.author}")
+        # Send a log that the command has been run
+        await send_command_log(self, ctx, "ping")
 
 
 async def setup(client):

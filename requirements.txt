@@ -3,3 +3,5 @@ python-dotenv
 asyncio
 PyNaCl
 pytubefix
+logging
+cysystemd

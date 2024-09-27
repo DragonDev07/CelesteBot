@@ -5,3 +5,4 @@ PyNaCl
 pytubefix
 logging
 cysystemd
+llama3-package

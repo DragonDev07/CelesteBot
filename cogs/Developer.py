@@ -28,41 +28,40 @@ class Developer(commands.Cog):
         if cogname is None:
             # If it is, send a embed to the command user to provide a cog
             embed = discord.Embed(
-                title="Error",
+                title=":x: Error",
                 description="Please provide the name of a cog to load (see /help)",
                 color=discord.Color.red(),
             )
 
             await ctx.send(embed=embed)
-            return
-
-        # Try to load the cog
-        try:
-            # Load the cog
-            cog = "cogs." + cogname
-            await self.client.load_extension(cog)
-        except Exception as e:
-            # If an error occurs, send a response embed to the command user
-            embed = discord.Embed(
-                title="Error",
-                description=f"Loading cog {cogname} threw error {e}\nDid not load cog.",
-                color=discord.Color.red(),
-            )
-
-            await ctx.send(embed=embed)
         else:
-            # If the cog is loaded successfully, send an embed message to the command user
-            embed = discord.Embed(
-                title="Cog Loaded",
-                description=f"The cog {cogname} has been successfully loaded.",
-                color=discord.Color.green(),
-            )
-            embed.set_footer(
-                text=f"`loadcog` command was run by {ctx.message.author} on the {cogname} cog",
-                icon_url=ctx.author.avatar,
-            )
+            # Try to load the cog
+            try:
+                # Load the cog
+                cog = "cogs." + cogname
+                await self.client.load_extension(cog)
+            except Exception as e:
+                # If an error occurs, send a response embed to the command user
+                embed = discord.Embed(
+                    title="Error",
+                    description=f"Loading cog {cogname} threw error {e}\nDid not load cog.",
+                    color=discord.Color.red(),
+                )
 
-            await ctx.send(embed=embed)
+                await ctx.send(embed=embed)
+            else:
+                # If the cog is loaded successfully, send an embed message to the command user
+                embed = discord.Embed(
+                    title="Cog Loaded",
+                    description=f"The cog {cogname} has been successfully loaded.",
+                    color=discord.Color.green(),
+                )
+                embed.set_footer(
+                    text=f"`loadcog` command was run by {ctx.message.author} on the {cogname} cog",
+                    icon_url=ctx.author.avatar,
+                )
+
+                await ctx.send(embed=embed)
 
         # Log that the command was run
         await send_command_log(self, ctx, "loadcog")
@@ -77,7 +76,7 @@ class Developer(commands.Cog):
         if cogname is None:
             # If it is, send a embed to the command user to provide a cog
             embed = discord.Embed(
-                title="Error",
+                title=":x: Error",
                 description="Please provide the name of a cog to unload (see /help)",
                 color=discord.Color.red(),
             )

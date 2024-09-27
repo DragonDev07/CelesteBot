@@ -39,7 +39,8 @@ class AI(commands.Cog):
             await ctx.send(embed=embed)
         else:
             # Prompt llama3 AI
-            response = ollama.generate(model="mannix/llama3-uncensored", prompt=prompt)
+            result = ollama.generate(model="mannix/llama3-uncensored", prompt=prompt)
+            response = result["response"]
 
             # Send an embed with the response
             embed = discord.Embed(

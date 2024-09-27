@@ -24,7 +24,6 @@ class AI(commands.Cog):
     @commands.hybrid_command(
         name="llama", description="Prompt llama2 Uncensored AI Model"
     )
-    @commands.is_owner()
     async def llama(self, ctx, prompt=None):
         # Defer the response
         await ctx.defer()

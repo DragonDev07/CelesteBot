@@ -12,7 +12,7 @@ async def send_generic_log(info):
 
 
 # Function to send a log thats specific to a command
-async def send_command_log(self, ctx, command):
+async def send_command_log(self, ctx, command, error=False):
     # Get the current time
     time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 

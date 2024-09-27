@@ -19,8 +19,8 @@ class AI(commands.Cog):
     async def on_command_error(self, ctx, error):
         await self.client.on_command_error(ctx, error)
 
-    # `llama3` Command
-    # Prompts llama3 model using the given prompt
+    # `llama` Command
+    # Prompts llama2-uncensored model using the given prompt
     @commands.hybrid_command(
         name="llama", description="Prompt llama2 Uncensored AI Model"
     )
@@ -53,7 +53,43 @@ class AI(commands.Cog):
             await ctx.send(embed=embed)
 
         # Log that the command was run
-        await send_command_log(self, ctx, "llama3")
+        await send_command_log(self, ctx, "llama")
+
+    # `coder` Command
+    # Prompts the deepseek-coder-v2 model using the given prompt
+    @commands.hybrid_command(
+        name="coder", description="Prompt deepseek-coder-v2 AI Model"
+    )
+    async def coder(self, ctx, prompt=None):
+        # Defer the response
+        await ctx.defer()
+
+        # Check if prompt is none
+        if prompt is None:
+            # If it is, send an embed to the user to provide a prompt
+            embed = discord.Embed(
+                title=":x: Error",
+                description="Please provide a prompt to ask deepseek-coder-v2",
+                color=discord.Color.red(),
+            )
+
+            await ctx.send(embed=embed)
+        else:
+            # Prompt deepseek-coder-v2 AI
+            result = ollama.generate(model="deepseek-coder-v2", prompt=prompt)
+            response = result["response"]
+
+            # Send an embed with the response
+            embed = discord.Embed(
+                title=f"{prompt}",
+                description=f"{response}",
+                color=discord.Color.green(),
+            )
+
+            await ctx.send(embed=embed)
+
+        # Log that the command was run
+        await send_command_log(self, ctx, "coder")
 
 
 async def setup(client):

@@ -1,4 +1,4 @@
-from llama3 import Llama3Model
+import ollama
 import discord
 from discord.ext import commands
 from utils.helper_functions import send_command_log, send_generic_log
@@ -8,7 +8,6 @@ class AI(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.cog_name = "AI"
-        self.llama3_model = Llama3Model()
 
     # Log that the cog was loaded
     @commands.Cog.listener()
@@ -40,7 +39,7 @@ class AI(commands.Cog):
             await ctx.send(embed=embed)
         else:
             # Prompt llama3 AI
-            response = self.llama3_model.prompt(prompt)
+            response = ollama.generate(model="mannix/llama3-uncensored", prompt=prompt)
 
             # Send an embed with the response
             embed = discord.Embed(

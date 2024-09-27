@@ -3,6 +3,4 @@ python-dotenv
 asyncio
 PyNaCl
 pytubefix
-logging
-cysystemd
 llama3-package

@@ -21,9 +21,11 @@ class AI(commands.Cog):
 
     # `llama3` Command
     # Prompts llama3 model using the given prompt
-    @commands.hybrid_command(name="llama3", description="Prompt llama3 AI Model")
+    @commands.hybrid_command(
+        name="llama", description="Prompt llama2 Uncensored AI Model"
+    )
     @commands.is_owner()
-    async def llama3(self, ctx, prompt=None):
+    async def llama(self, ctx, prompt=None):
         # Defer the response
         await ctx.defer()
 
@@ -32,14 +34,14 @@ class AI(commands.Cog):
             # If it is, send an embed to the user to provide a prompt
             embed = discord.Embed(
                 title=":x: Error",
-                description="Please provide a prompt to ask llama3",
+                description="Please provide a prompt to ask llama2",
                 color=discord.Color.red(),
             )
 
             await ctx.send(embed=embed)
         else:
-            # Prompt llama3 AI
-            result = ollama.generate(model="mannix/llama3-uncensored", prompt=prompt)
+            # Prompt llama2 AI
+            result = ollama.generate(model="llama2-uncensored", prompt=prompt)
             response = result["response"]
 
             # Send an embed with the response

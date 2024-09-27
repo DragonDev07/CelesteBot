@@ -49,6 +49,9 @@ class AI(commands.Cog):
                 description=f"{response}",
                 color=discord.Color.green(),
             )
+            embed.set_footer(
+                "Generated with llama2-uncensored AI Model in {result['time']} seconds"
+            )
 
             await ctx.send(embed=embed)
 
@@ -84,6 +87,9 @@ class AI(commands.Cog):
                 title=f"{prompt}",
                 description=f"{response}",
                 color=discord.Color.green(),
+            )
+            embed.set_footer(
+                "Generated with deepseek-coder-v2 AI Model in {result['time']} seconds"
             )
 
             await ctx.send(embed=embed)

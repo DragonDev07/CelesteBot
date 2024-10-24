@@ -35,7 +35,7 @@ class Jitpack(commands.Cog):
             color=discord.Color.green(),
         )
         embed.set_footer(
-            text=f"`join` command was run by {ctx.message.author}",
+            text=f"`downloads` command was run by {ctx.message.author}",
             icon_url=ctx.author.avatar,
         )
 

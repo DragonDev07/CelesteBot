@@ -5,3 +5,6 @@ PyNaCl
 pytubefix
 logging
 cysystemd
+pytz
+datetime
+requests

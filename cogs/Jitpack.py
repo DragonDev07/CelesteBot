@@ -45,11 +45,12 @@ class Jitpack(commands.Cog):
         await send_command_log(self, ctx, "downloads")
 
     @tasks.loop(
-        time=(datetime.time(hour=10, minute=0, tzinfo=pytz.timezone("America/Denver")))
+        time=(datetime.time(hour=21, minute=55, tzinfo=pytz.timezone("America/Denver")))
     )
     async def update_downloads(self):
         now = datetime.datetime.now(pytz.timezone("America/Denver"))
-        if now.weekday() != 2:
+        # Check if its sunday
+        if now.weekday() != 6:
             return
 
         # Update the total dowloads

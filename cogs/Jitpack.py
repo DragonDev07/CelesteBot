@@ -11,7 +11,7 @@ class Jitpack(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.cog_name = "Jitpack"
-        self.total_downloads = 1838
+        self.total_downloads = 1985
         self.update_downloads.start()
 
     # Log that the cog was loaded

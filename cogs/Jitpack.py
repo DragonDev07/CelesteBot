@@ -1,17 +1,19 @@
-import requests
-import json
-import discord
 import datetime
+import json
+
+import discord
 import pytz
+import requests
 from discord.ext import commands, tasks
+
 from utils.helper_functions import send_command_log, send_generic_log
 
 
 class Jitpack(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.cog_name = "Jitpack"
-        self.total_downloads = 1985
+        self.cog_name = 'Jitpack'
+        self.total_downloads = 2806
         self.update_downloads.start()
 
     # Log that the cog was loaded
@@ -25,30 +27,32 @@ class Jitpack(commands.Cog):
         await self.client.on_command_error(ctx, error)
 
     @commands.hybrid_command(
-        name="downloads", description="Get the total downloads for MeepMeep"
+        name='downloads', description='Get the total downloads for MeepMeep'
     )
     async def downloads(self, ctx):
         # Return total_downloads value in an embed
         embed = discord.Embed(
-            title="MeepMeep Downloads",
-            description=f"Total Downloads: {self.total_downloads}",
+            title='MeepMeep Downloads',
+            description=f'Total Downloads: {self.total_downloads}',
             color=discord.Color.green(),
         )
         embed.set_footer(
-            text=f"`downloads` command was run by {ctx.message.author}",
+            text=f'`downloads` command was run by {ctx.message.author}',
             icon_url=ctx.author.avatar,
         )
 
         await ctx.send(embed=embed)
 
         # Log that the command was run
-        await send_command_log(self, ctx, "downloads")
+        await send_command_log(self, ctx, 'downloads')
 
     @tasks.loop(
-        time=(datetime.time(hour=21, minute=55, tzinfo=pytz.timezone("America/Denver")))
+        time=(
+            datetime.time(hour=21, minute=55, tzinfo=pytz.timezone('Etc/UTC'))
+        )
     )
     async def update_downloads(self):
-        now = datetime.datetime.now(pytz.timezone("America/Denver"))
+        now = datetime.datetime.now(pytz.timezone('America/Denver'))
         # Check if its sunday
         if now.weekday() != 6:
             return
@@ -59,12 +63,14 @@ class Jitpack(commands.Cog):
 
         # Create an Embed containing the total downloads, and the weekly downloads that were added
         embed = discord.Embed(
-            title="MeepMeep Downloads",
-            description=f"Total Downloads: {self.total_downloads}",
+            title='MeepMeep Downloads',
+            description=f'Total Downloads: {self.total_downloads}',
             color=discord.Color.green(),
         )
-        embed.add_field(name="Weekly Downloads", value=weekly_downloads)
-        embed.set_footer(text=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        embed.add_field(name='Weekly Downloads', value=weekly_downloads)
+        embed.set_footer(
+            text=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        )
 
         # Send the Embed to the #meepmeep-downloads channel
         await self.client.get_channel(1298670280322846771).send(embed=embed)
@@ -77,7 +83,9 @@ class Jitpack(commands.Cog):
     # Helper function to get downloads from Jitpack's API
     async def fetch_downloads(self):
         # Fetch downloads from url
-        url = "https://jitpack.io/api/downloads/com.github.rh-robotics/meepmeep"
+        url = (
+            'https://jitpack.io/api/downloads/com.github.rh-robotics/meepmeep'
+        )
         response = requests.get(url)
 
         # Extract the "week" downloads from the response if it was successful
@@ -86,14 +94,14 @@ class Jitpack(commands.Cog):
             data = json.loads(response.text)
 
             # Extract "week" downloads
-            downloads = data.get("week", 0)
+            downloads = data.get('week', 0)
 
             # Print the download information
-            send_generic_log(f"Weekly downloads for MeepMeep: {downloads}")
+            send_generic_log(f'Weekly downloads for MeepMeep: {downloads}')
             return downloads
         else:
             send_generic_log(
-                f"Failed to retrieve data. Status code: {response.status_code}"
+                f'Failed to retrieve data. Status code: {response.status_code}'
             )
             return -10000000000000000
 

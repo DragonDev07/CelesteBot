@@ -52,7 +52,8 @@ class Jitpack(commands.Cog):
         )
     )
     async def update_downloads(self):
-        now = datetime.datetime.now(pytz.timezone('America/Denver'))
+        now = datetime.datetime.now(pytz.timezone('Etc/UTC'))
+
         # Check if its sunday
         if now.weekday() != 6:
             return

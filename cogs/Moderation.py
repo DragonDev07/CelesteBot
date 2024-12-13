@@ -96,55 +96,5 @@ class Moderation(commands.Cog):
         # Log that the command has been run
         await send_command_log(self, ctx, "clear")
 
-    # `reaction_roles` Command
-    # TODO: TEST
-    @commands.hybrid_command(
-        name="reaction_roles",
-        description="Create reaction roles, format: title, description, role1, reaction1, role2, reaction2, ...",
-    )
-    @commands.has_permissions(manage_roles=True)
-    async def reaction_roles(self, ctx, title, description, *roles_and_reactions):
-        # Check if the number of roles and reactions is even
-        if len(roles_and_reactions) % 2 != 0:
-            await ctx.send(
-                "Invalid number of arguments. Each role must have a corresponding reaction."
-            )
-            return
-
-        # Create an embed with the reaction roles information
-        embed = discord.Embed(
-            title=title,
-            description=description,
-            color=discord.Color.blue(),
-        )
-        embed.set_footer(
-            text=f"Reaction roles created by {ctx.message.author}",
-            icon_url=ctx.author.avatar,
-        )
-
-        # Add the reaction roles to the embed
-        for i in range(0, len(roles_and_reactions), 2):
-            role = discord.utils.get(ctx.guild.roles, name=roles_and_reactions[i])
-            reaction = roles_and_reactions[i + 1]
-            if role is not None:
-                embed.add_field(
-                    name=f"React with {reaction}",
-                    value=f"To get the {role.mention} role",
-                    inline=False,
-                )
-            else:
-                await ctx.send(f"Role '{roles_and_reactions[i]}' not found.")
-
-        # Send the embed as a response
-        message = await ctx.send(embed=embed)
-
-        # Add reactions to the message
-        for i in range(1, len(roles_and_reactions), 2):
-            await message.add_reaction(roles_and_reactions[i])
-
-        # Log that the command has been run
-        await send_command_log(self, ctx, "reaction_roles")
-
-
 async def setup(client):
     await client.add_cog(Moderation(client))
